@@ -1,0 +1,86 @@
+SELECT *
+FROM data_analyst_jobs;
+
+SELECT COUNT(*)
+FROM data_analyst_jobs;        
+-- 1793 Rows
+
+SELECT *
+FROM data_analyst_jobs
+LIMIT 10;
+-- ExxonMobil
+
+SELECT COUNT(*)
+FROM data_analyst_jobs
+WHERE location = 'TN';
+-- 21
+
+SELECT COUNT(*)
+FROM data_analyst_jobs
+WHERE location = 'KY' OR location = 'TN';
+-- 27
+
+SELECT COUNT(*)
+FROM data_analyst_jobs
+WHERE location = 'TN' AND star_rating > 4;
+-- 3
+
+SELECT COUNT(*)
+FROM data_analyst_jobs
+WHERE review_count BETWEEN 500 AND 1000;
+-- 151
+
+SELECT location AS state, AVG(star_rating) AS avg_rating
+FROM data_analyst_jobs
+GROUP BY state
+ORDER BY avg_rating DESC;
+-- Nebraska
+
+SELECT COUNT(DISTINCT title)
+FROM data_analyst_jobs;
+-- 881
+
+SELECT COUNT(DISTINCT title)
+FROM data_analyst_jobs
+WHERE location = 'CA';
+-- 230
+
+SELECT company, AVG(star_rating)
+FROM data_analyst_jobs
+WHERE review_count > 5000 AND company IS NOT NULL
+GROUP BY company;
+-- 40
+
+SELECT company, AVG(star_rating)
+FROM data_analyst_jobs
+WHERE review_count > 5000 AND company IS NOT NULL
+GROUP BY company
+ORDER BY AVG(star_rating) DESC, company;
+-- American express, AM, Kaiser, Microsoft, Nike, Unilever (4.199)
+
+SELECT COUNT(title)
+FROM data_analyst_jobs
+WHERE UPPER(title) LIKE '%ANALYST%';
+-- 1669
+
+SELECT COUNT(DISTINCT title)
+FROM data_analyst_jobs
+WHERE UPPER(title) LIKE '%ANALYST%';
+-- 774
+
+SELECT DISTINCT title
+FROM data_analyst_jobs
+WHERE UPPER(title) NOT LIKE '%ANALYST%' AND UPPER(title) NOT LIKE '%ANALYTICS%';
+-- 4, Tableau
+
+SELECT domain, COUNT(title)
+FROM data_analyst_jobs
+WHERE skill LIKE '%SQL%' AND days_since_posting > 21 AND domain IS NOT NULL
+GROUP BY domain
+ORDER BY COUNT(title) DESC
+LIMIT 4;
+-- 1. Internet and Software  62
+-- 2. Banks and Financial Services  61
+-- 3. Consulting and Business Services  57
+-- 4. Health Care  52
+
